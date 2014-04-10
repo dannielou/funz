@@ -1,0 +1,42 @@
+Phk warned about openssl 4 years ago.
+
+https://www.varnish-cache.org/lists/pipermail/varnish-misc/2010-April/018410.html
+
+In message <t2id002c4031004071101s8bc80aaeg5665316830381e6d at mail.gmail.com>, Mi
+chael Fischer writes:
+
+>What's the incompatibility with OpenSSL?
+
+I have two main reservations about SSL in Varnish:
+
+1. OpenSSL is almost 350.000 lines of code, Varnish is only 58.000,
+   Adding such a massive amount of code to Varnish footprint, should
+   result in a very tangible benefit.
+
+   Compared to running a SSL proxy in front of Varnish, I can see
+   very, very little benefit from integration.  Yeah, one process
+   less and only one set of config parameters.
+
+   But that all sounds like "second systems syndrome" thinking to me,
+   it does not really sound lige a genuine "The world would become
+   a better place" feature request.
+
+   But I do see some some serious drawbacks:  The necessary changes
+   to Varnish internal logic will almost certainly hurt varnish 
+   performance for the plain HTTP case.  We need to add an inordinate
+   about of overhead code, to configure and deal with the key/cert
+   bits.
+
+2. I have looked at the OpenSSL source code, I think it is a catastrophe
+   waiting to happen.  In fact, the only thing that prevents attackers
+   from exploiting problems more actively, is that the source code is
+   fundamentally unreadable and impenetrable.
+
+Unless those two issues can be addressed, I don't see SSL in Varnish
+any time soon.
+
+-- 
+Poul-Henning Kamp       | UNIX since Zilog Zeus 3.20
+phk at FreeBSD.ORG         | TCP/IP since RFC 956
+FreeBSD committer       | BSD since 4.3-tahoe    
+Never attribute to malice what can adequately be explained by incompetence.
